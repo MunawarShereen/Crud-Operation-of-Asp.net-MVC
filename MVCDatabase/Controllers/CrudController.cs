@@ -84,16 +84,14 @@ namespace MVCDatabase.Controllers
         [HttpPost]
         public ActionResult Delete(int id, FormCollection collection)
         {
-            try
+           if (ModelState.IsValid == true)
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+                db.Entry(s).State = System.Data.Entity.EntityState.Deleted;
+                int a = db.SaveChanges();
+                if (a > 0)
+                {
+                    return RedirectToAction("Index");
+                }
         }
     }
 }
