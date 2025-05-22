@@ -77,15 +77,9 @@ namespace MVCDatabase.Controllers
         // GET: Crud/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
-        }
-
-        // POST: Crud/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        var row = db.students.Where(model => model.id == id ).FirstOrDefault();
+        if (ModelState.IsValid == true)
         {
-           if (ModelState.IsValid == true)
-            {
                 db.Entry(s).State = System.Data.Entity.EntityState.Deleted;
                 int a = db.SaveChanges();
                 if (a > 0)
@@ -93,5 +87,9 @@ namespace MVCDatabase.Controllers
                     return RedirectToAction("Index");
                 }
         }
+            return View();
+        }
+
+           
     }
 }
